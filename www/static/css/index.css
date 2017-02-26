@@ -1,0 +1,85 @@
+body{
+	font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,"sans-serif";
+	min-width: 538px;
+}
+#content{
+	display: flex;
+	justify-content: center;
+
+	list-style: none;
+	max-width: 765px;
+	min-width: 479px;
+	margin: 32px auto;
+}
+
+/*Header CSS*/
+.headerbtn{
+	width: 50%;
+}
+
+/*ListPage CSS*/
+.listpage{
+	list-style: none;
+	max-width: 765px;
+	min-width: 479px;
+	margin: 32px auto;
+}
+.listpage li{
+	transition: background-color .3s ease;
+	border-radius: 3px;
+	display: block;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+}
+.listpage li:hover{
+	background-color: rgba(0,0,0,0.1);
+}
+.listpage img{
+	border-radius: 3px;
+	width: 100%;
+	transition: transform 1s ease;
+}
+.listpage img:hover{
+	transform: scale(1.1);
+}
+.listpage li div{
+	margin: 10px 0 10px 0;
+}
+.listpage li div:nth-child(1){
+	border-radius: 3px;
+	width: 240px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.listpage li div:nth-child(2){
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.listpage li div:nth-child(2) p:nth-child(1){
+	font-weight: 900;
+	transition: color .3s ease;
+}
+.listpage li div:nth-child(2) p:nth-child(1):hover{
+	color: #366df0;
+}
+/*DetailsPage CSS*/
+.detailspage {
+	margin: 32px auto;
+	max-width: 765px;
+	min-width: 479px;
+}
+.detailspage h1{
+	font-weight: 
+}
+.detailspage img{
+	width: 100%;
+	border-radius: 5px;
+}
+/*EditPage CSS*/
+.editpage{
+	width: 100%;
+}
