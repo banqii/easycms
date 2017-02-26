@@ -37,8 +37,8 @@ class ListPage extends React.Component {
     	this.getKey = this.getKey.bind(this);
   	}
 	getKey(articleid){
-		console.log(articleid);
-		browserHistory.push('/detail?articleid=1234');
+		// console.log(articleid);
+		browserHistory.push('/detail?articleid=' + articleid);
 
 	}
 	  render() {

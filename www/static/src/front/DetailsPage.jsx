@@ -1,5 +1,6 @@
 //文章详情页
 import React from 'react';
+import { browserHistory } from 'react-router';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,7 +22,14 @@ var data = {
 
 class DetailsPage extends React.Component {
 	componentWillMount(){
-
+		if (this.props.location.query.articleid) {
+	      	console.log('我要加载数据了');
+	    }else{
+	      	console.log('我没有数据可以加载');
+	    }
+	}
+	intoEdit(){
+		browserHistory.push('/edt?articleid=' + this.props.location.query.articleid);
 	}
 	render(){
 		return (
@@ -40,7 +48,7 @@ class DetailsPage extends React.Component {
 					<p>{data.content}</p>
 				</section>
 				<section>
-					<RaisedButton label="编辑文章" />
+					<RaisedButton label="编辑文章" onClick={() => this.intoEdit()} />
 				</section>
 			</article>
 		</MuiThemeProvider>

@@ -13,7 +13,7 @@ const App = () => (
   	<Router history={browserHistory}>
   		<Route path="/" component={Header}>
     		<IndexRoute component={ListPage}/>
-    		<Route path="detail/:articleid" component={DetailsPage}/>
+    		<Route path="detail(/:articleid)" component={DetailsPage}/>
     		<Route path="edt(/:articleid)" component={EditPage}/>
   		</Route>
 	</Router>
