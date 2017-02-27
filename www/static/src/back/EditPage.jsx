@@ -10,12 +10,7 @@ import UEditor from './UEditor';
 
 import $ from "jquery";
 
-var data = {
-	articleid: '',
-	title: 'aaa',
-	indeximgurl: 'url',
-	content: '文章内容'
-}
+
 class EditPage extends React.Component {
   componentWillMount(){
     if (this.props.location.query.articleid) {
@@ -63,27 +58,23 @@ class EditPage extends React.Component {
   handleSubmit(event) {//提交
     if (this.state.ifedit) {
       console.log("我正在更新文章");
-      let data  = this.state;
-      data.content = UE.getEditor('ueditor').getContent();
-      this.serverRequest = $.post('http://localhost:8360/home/index/updateone', {data: data}, function(data, textStatus, xhr) {
-        /*optional stuff to do after success */
-        data = JSON.parse(data);
-        alert(data.tip);
-      }.bind(this));
+      this.ajaxAction('updateone');
     }else{
       console.log("我正在新建文章");
-      let data  = this.state;
+      this.ajaxAction('addone');
+    }
+    event.preventDefault();
+  }
+  ajaxAction(action){
+    let data  = this.state;
       data.content = UE.getEditor('ueditor').getContent();
-      this.serverRequest = $.post('http://localhost:8360/home/index/addone', {data: data}, function(data, textStatus, xhr) {
+      this.serverRequest = $.post('http://localhost:8360/home/index/' + action, {data: data}, function(data, textStatus, xhr) {
         /*optional stuff to do after success */
         data = JSON.parse(data);
         alert(data.tip);
+        browserHistory.push('/');
       }.bind(this));
-    }
-    browserHistory.push('/');
-    event.preventDefault();
   }
-
 
   render() {
   	return (

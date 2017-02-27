@@ -65,6 +65,20 @@ export default class extends Base {
     	}
     	
   	}
+    /**
+     * deleteone action
+     * @return {Promise} []
+     */
+    async deleteoneAction(){
+    	let articleid = this.get('articleid');
+    	let model = this.model('index');
+    	let affectedRows = await model.where({articleid: articleid}).delete();
+    	if (affectedRows>0) {
+    		this.end({tip: 'success'});
+    	}else{
+    		this.end({tip: 'failed'});
+    	}
+  	}
 
     // tools
     rowsToObj(rows) {

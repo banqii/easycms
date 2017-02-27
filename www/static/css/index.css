@@ -11,7 +11,9 @@ body{
 	min-width: 479px;
 	margin: 32px auto;
 }
-
+#content>div{
+	width:100%;
+}
 /*Header CSS*/
 .headerbtn{
 	width: 50%;
@@ -20,9 +22,10 @@ body{
 /*ListPage CSS*/
 .listpage{
 	list-style: none;
-	max-width: 765px;
-	min-width: 479px;
+	width: 100%;
+	/*min-width: 479px;*/
 	margin: 32px auto;
+	padding: 0;
 }
 .listpage li{
 	padding: 0 10px 0 10px;
@@ -31,7 +34,8 @@ body{
 	display: block;
 	cursor: pointer;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
+	height: 170px;
 }
 .listpage li:hover{
 	background-color: rgba(0,0,0,0.1);
@@ -58,7 +62,7 @@ body{
 	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: space-between;
 }
 .listpage li div:nth-child(2) p:nth-child(1){
 	font-weight: 900;
@@ -73,22 +77,27 @@ body{
 /*DetailsPage CSS*/
 .detailspage {
 	margin: 32px auto;
-	max-width: 765px;
-	min-width: 479px;
+	width: 100%;
 }
 .detailspage h1{
-	font-size: 28px;
+	font-size: 26px;
 }
 .detailspage img{
 	margin-bottom: 20px;
 	width: 100%;
 	border-radius: 5px;
 }
-.article-content {
-	font-size: 20px!important;
+.detailspage .article-content {
+	font-size: 15px!important;
 }
-.article-content p{
-	font-size: 20px!important;
+.detailspage .article-content p{
+	line-height: 28px;
+	font-size: 15px!important;
+}
+.detailspage .btns{
+	width: 50%;
+	display: flex;
+	justify-content: space-around;
 }
 /*EditPage CSS*/
 .editpage{

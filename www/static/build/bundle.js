@@ -14771,13 +14771,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //ueditor
 //文章编辑页
-var data = {
-  articleid: '',
-  title: 'aaa',
-  indeximgurl: 'url',
-  content: '文章内容'
-};
-
 var EditPage = function (_React$Component) {
   (0, _inherits3.default)(EditPage, _React$Component);
 
@@ -14834,25 +14827,23 @@ var EditPage = function (_React$Component) {
     //提交
     if (this.state.ifedit) {
       console.log("我正在更新文章");
-      var _data = this.state;
-      _data.content = UE.getEditor('ueditor').getContent();
-      this.serverRequest = _jquery2.default.post('http://localhost:8360/home/index/updateone', { data: _data }, function (data, textStatus, xhr) {
-        /*optional stuff to do after success */
-        data = JSON.parse(data);
-        alert(data.tip);
-      }.bind(this));
+      this.ajaxAction('updateone');
     } else {
       console.log("我正在新建文章");
-      var _data2 = this.state;
-      _data2.content = UE.getEditor('ueditor').getContent();
-      this.serverRequest = _jquery2.default.post('http://localhost:8360/home/index/addone', { data: _data2 }, function (data, textStatus, xhr) {
-        /*optional stuff to do after success */
-        data = JSON.parse(data);
-        alert(data.tip);
-      }.bind(this));
+      this.ajaxAction('addone');
     }
-    _reactRouter.browserHistory.push('/');
     event.preventDefault();
+  };
+
+  EditPage.prototype.ajaxAction = function ajaxAction(action) {
+    var data = this.state;
+    data.content = UE.getEditor('ueditor').getContent();
+    this.serverRequest = _jquery2.default.post('http://localhost:8360/home/index/' + action, { data: data }, function (data, textStatus, xhr) {
+      /*optional stuff to do after success */
+      data = JSON.parse(data);
+      alert(data.tip);
+      _reactRouter.browserHistory.push('/');
+    }.bind(this));
   };
 
   EditPage.prototype.render = function render() {
@@ -15038,6 +15029,7 @@ var DetailsPage = function (_React$Component) {
 			this.serverRequest = _jquery2.default.get('http://localhost:8360/home/index/selectone?articleid=' + this.props.location.query.articleid, function (result) {
 				// console.log(result);
 				var json = JSON.parse(result);
+				json['articleid'] = this.props.location.query.articleid;
 				this.setState(json);
 			}.bind(this));
 		} else {
@@ -15051,6 +15043,7 @@ var DetailsPage = function (_React$Component) {
 		var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call(this, props));
 
 		_this.state = {
+			articleid: '',
 			title: '',
 			indeximgurl: '',
 			content: '',
@@ -15061,6 +15054,15 @@ var DetailsPage = function (_React$Component) {
 
 	DetailsPage.prototype.intoEdit = function intoEdit() {
 		_reactRouter.browserHistory.push('/edt?articleid=' + this.props.location.query.articleid);
+	};
+
+	DetailsPage.prototype.deleteArticle = function deleteArticle() {
+		this.serverRequest = _jquery2.default.get('http://localhost:8360/home/index/deleteone?articleid=' + this.state.articleid, function (result) {
+			// console.log(result);
+			var result = JSON.parse(result);
+			alert(result.tip);
+			_reactRouter.browserHistory.push('/');
+		}.bind(this));
 	};
 
 	DetailsPage.prototype.createMarkup = function createMarkup() {
@@ -15102,9 +15104,12 @@ var DetailsPage = function (_React$Component) {
 				_react2.default.createElement('section', { className: 'article-content', dangerouslySetInnerHTML: this.createMarkup() }),
 				_react2.default.createElement(
 					'section',
-					null,
+					{ className: 'btns' },
 					_react2.default.createElement(_RaisedButton2.default, { label: '\u7F16\u8F91\u6587\u7AE0', onClick: function onClick() {
 							return _this2.intoEdit();
+						} }),
+					_react2.default.createElement(_RaisedButton2.default, { label: '\u5220\u9664\u6587\u7AE0', onClick: function onClick() {
+							return _this2.deleteArticle();
 						} })
 				)
 			)

@@ -16,6 +16,7 @@ class DetailsPage extends React.Component {
 			this.serverRequest = $.get('http://localhost:8360/home/index/selectone?articleid='+this.props.location.query.articleid, function (result) {
 				// console.log(result);
 				var json = JSON.parse(result);
+				json['articleid'] = this.props.location.query.articleid;
 				this.setState(json);
     		}.bind(this));
 	    }else{
@@ -25,6 +26,7 @@ class DetailsPage extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {
+    			articleid: '',
 				title: '',
 				indeximgurl: '',
 				content: '',
@@ -33,6 +35,14 @@ class DetailsPage extends React.Component {
   	}
 	intoEdit(){
 		browserHistory.push('/edt?articleid=' + this.props.location.query.articleid);
+	}
+	deleteArticle(){
+		this.serverRequest = $.get('http://localhost:8360/home/index/deleteone?articleid='+this.state.articleid, function (result) {
+			// console.log(result);
+			var result = JSON.parse(result);
+			alert(result.tip);
+			browserHistory.push('/');
+		}.bind(this));
 	}
 	createMarkup() {
   		return {__html: this.state.content};
@@ -52,8 +62,9 @@ class DetailsPage extends React.Component {
 				</section>
 				<section className='article-content' dangerouslySetInnerHTML={this.createMarkup()}>
 				</section>
-				<section>
+				<section className='btns'>
 					<RaisedButton label="编辑文章" onClick={() => this.intoEdit()} />
+					<RaisedButton label="删除文章" onClick={() => this.deleteArticle()} />
 				</section>
 			</article>
 		</MuiThemeProvider>
