@@ -4,10 +4,15 @@ Thinkjs + React + webpack + Mysql 实现的一个简单 CMS 系统
 ## 环境
 
 Node.js  6.10.0
+
 npm      4.3.0
+
 Thinkjs  2.2.17
+
 React    15.4.2
+
 webpack  2.2.1
+
 Mysql    5.0.45-community-nt
 
 ## 开始
@@ -21,7 +26,7 @@ Mysql    5.0.45-community-nt
 ### 修改代码
 
 ```
-数据库连接配置在 easycms > src > common > config > db.js 文件中
+数据库连接配置在 easycms>src>common>config>db.js 文件中
 默认
 {
   host: '127.0.0.1',
