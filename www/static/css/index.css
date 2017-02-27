@@ -66,6 +66,9 @@ body{
 .listpage li div:nth-child(2) p:nth-child(1):hover{
 	color: #366df0;
 }
+.notebtn{
+	width: 100%;
+}
 /*DetailsPage CSS*/
 .detailspage {
 	margin: 32px auto;

@@ -7,6 +7,8 @@ import TextField from 'material-ui/TextField';
 //ueditor
 import UEditor from './UEditor';
 
+import $ from "jquery";
+
 var data = {
 	articleid: '',
 	title: 'aaa',
@@ -17,29 +19,33 @@ class EditPage extends React.Component {
   componentWillMount(){
     if (this.props.location.query.articleid) {
       console.log('我要加载数据了');
-      this.state = {
-        ifedit: true,
-        title: 'aaa',
-        indeximgurl: 'aaa',
-        content: 'aaa'
-    };
-    }else{
-      console.log('我没有数据可以加载');
-    }
-    
+      var data = [];
+      var _self = this;
+      this.serverRequest = $.get('http://localhost:8360/home/index/selectone?articleid='+this.props.location.query.articleid, function (result) {
+        console.log(result);
+        var json = JSON.parse(result);
+        json['ifedit'] = true;
+        json['aritcleid'] = this.props.location.query.articleid;
+        
+        this.setState(json);
+        }.bind(this));
+      }else{
+        console.log('我没有数据可以加载');
+      }
   }
   constructor(props) {
     super(props);
     this.state = {
       ifedit: false,
-    	title: '',
-		  indeximgurl: '',
-		  content: ''
+      aritcleid: '',
+      title: '',
+      indeximgurl: '',
+      content: ''
     };
 
     this.tChange = this.tChange.bind(this);
     this.iChange = this.iChange.bind(this);
-    this.cGetContent = this.cGetContent.bind(this);
+    // this.cGetContent = this.cGetContent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -49,22 +55,33 @@ class EditPage extends React.Component {
   iChange(event) {
     this.setState({indeximgurl: event.target.value});
   }
-  cGetContent(event) {//设置content
-    this.setState({content: UE.getEditor('ueditor').getContent()});
-  }
+  // cGetContent(event) {//设置content
+  //   this.setState({content: UE.getEditor('ueditor').getContent()});
+  // }
 
   handleSubmit(event) {//提交
     if (this.state.ifedit) {
       console.log("我正在更新文章");
+      let data  = this.state;
+      data.content = UE.getEditor('ueditor').getContent();
+      this.serverRequest = $.post('http://localhost:8360/home/index/updateone', {data: data}, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        console.log(data);
+      }.bind(this));
     }else{
       console.log("我正在新建文章");
+      let data  = this.state;
+      data.content = UE.getEditor('ueditor').getContent();
+      this.serverRequest = $.post('http://localhost:8360/home/index/addone', {data: data}, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        console.log(data);
+      }.bind(this));
     }
     event.preventDefault();
   }
 
 
   render() {
-  	console.log(this.props.location.query.articleid);
   	return (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
     <article className='editpage'>
@@ -80,7 +97,7 @@ class EditPage extends React.Component {
 	    	/>
 	    	<br />
 	        <TextField
-	     		// hintText="Message Field"
+	     		hintText="例：static/img/img1.jpg"
 	      		floatingLabelText="图片url"
 	      		multiLine={false}
 	      		fullWidth={true}

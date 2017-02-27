@@ -2,7 +2,7 @@
   "apps": [{
     "name": "E:workspacetestseasycmsE:workspacetestseasycmseasycms",
     "script": "www/production.js",
-    "cwd": "E:\workspace\tests\easycms\easycms",
+    "cwd": "E:\workspace\easycms",
     "exec_mode": "cluster",
     "instances": 0,
     "max_memory_restart": "1G",
