@@ -25,6 +25,7 @@ body{
 	margin: 32px auto;
 }
 .listpage li{
+	padding: 0 10px 0 10px;
 	transition: background-color .3s ease;
 	border-radius: 3px;
 	display: block;
@@ -76,11 +77,18 @@ body{
 	min-width: 479px;
 }
 .detailspage h1{
-	font-weight: 
+	font-size: 28px;
 }
 .detailspage img{
+	margin-bottom: 20px;
 	width: 100%;
 	border-radius: 5px;
+}
+.article-content {
+	font-size: 20px!important;
+}
+.article-content p{
+	font-size: 20px!important;
 }
 /*EditPage CSS*/
 .editpage{

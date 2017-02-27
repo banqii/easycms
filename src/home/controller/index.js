@@ -31,9 +31,6 @@ export default class extends Base {
      */
     async updateoneAction(){
     	let articleid = this.post('data[articleid]');//文章id
-    	console.log('-----------------');
-    	console.log('articleid:'+articleid);
-    	console.log('-----------------');
     	let title = this.post('data[title]');//文章标题
     	let indeximgurl = this.post('data[indeximgurl]');//文章首图
     	let content = this.post('data[content]');//文章内容

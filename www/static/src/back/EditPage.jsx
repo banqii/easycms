@@ -1,5 +1,6 @@
 //文章编辑页
 import React from 'react';
+import { browserHistory } from 'react-router';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,7 +23,7 @@ class EditPage extends React.Component {
       var data = [];
       var _self = this;
       this.serverRequest = $.get('http://localhost:8360/home/index/selectone?articleid='+this.props.location.query.articleid, function (result) {
-        console.log(result);
+        // console.log(result);
         var json = JSON.parse(result);
         json['ifedit'] = true;
         json['aritcleid'] = this.props.location.query.articleid;
@@ -66,7 +67,8 @@ class EditPage extends React.Component {
       data.content = UE.getEditor('ueditor').getContent();
       this.serverRequest = $.post('http://localhost:8360/home/index/updateone', {data: data}, function(data, textStatus, xhr) {
         /*optional stuff to do after success */
-        console.log(data);
+        data = JSON.parse(data);
+        alert(data.tip);
       }.bind(this));
     }else{
       console.log("我正在新建文章");
@@ -74,9 +76,11 @@ class EditPage extends React.Component {
       data.content = UE.getEditor('ueditor').getContent();
       this.serverRequest = $.post('http://localhost:8360/home/index/addone', {data: data}, function(data, textStatus, xhr) {
         /*optional stuff to do after success */
-        console.log(data);
+        data = JSON.parse(data);
+        alert(data.tip);
       }.bind(this));
     }
+    browserHistory.push('/');
     event.preventDefault();
   }
 
