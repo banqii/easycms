@@ -15057,12 +15057,14 @@ var DetailsPage = function (_React$Component) {
 	};
 
 	DetailsPage.prototype.deleteArticle = function deleteArticle() {
-		this.serverRequest = _jquery2.default.get('http://localhost:8360/home/index/deleteone?articleid=' + this.state.articleid, function (result) {
-			// console.log(result);
-			var result = JSON.parse(result);
-			alert(result.tip);
-			_reactRouter.browserHistory.push('/');
-		}.bind(this));
+		if (confirm('确认删除？')) {
+			this.serverRequest = _jquery2.default.get('http://localhost:8360/home/index/deleteone?articleid=' + this.state.articleid, function (result) {
+				// console.log(result);
+				var result = JSON.parse(result);
+				alert(result.tip);
+				_reactRouter.browserHistory.push('/');
+			}.bind(this));
+		}
 	};
 
 	DetailsPage.prototype.createMarkup = function createMarkup() {

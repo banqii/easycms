@@ -37,12 +37,14 @@ class DetailsPage extends React.Component {
 		browserHistory.push('/edt?articleid=' + this.props.location.query.articleid);
 	}
 	deleteArticle(){
-		this.serverRequest = $.get('http://localhost:8360/home/index/deleteone?articleid='+this.state.articleid, function (result) {
-			// console.log(result);
-			var result = JSON.parse(result);
-			alert(result.tip);
-			browserHistory.push('/');
-		}.bind(this));
+		if (confirm('确认删除？')) {
+			this.serverRequest = $.get('http://localhost:8360/home/index/deleteone?articleid='+this.state.articleid, function (result) {
+				// console.log(result);
+				var result = JSON.parse(result);
+				alert(result.tip);
+				browserHistory.push('/');
+			}.bind(this));
+		}
 	}
 	createMarkup() {
   		return {__html: this.state.content};
